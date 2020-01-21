@@ -9,7 +9,10 @@
 import UIKit
 import CoreData
 class TaakListTableViewController: UITableViewController {
- var tasks: [TaskName]?
+    
+    @IBOutlet var searchoption: UISearchBar!
+    var tasks: [TaskName]?
+    var days = "0"
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,7 +69,14 @@ class TaakListTableViewController: UITableViewController {
     
 // Configure the cell...
         cell?.textLabel?.text = task.taskname
-        cell?.detailTextLabel?.text = "\(task.lastdate) days"
+       // cell?.detailTextLabel?.text = "\(task.lastdate) days"
+        cell?.detailTextLabel?.text = "\(task.lastdate) days and \(task.countdown) completed days"
+           if tasks?[indexPath.row].countdown == self.tasks?[indexPath.row].lastdate{
+                       cell?.backgroundColor = UIColor.gray
+                       cell?.textLabel?.text = "Task Completed"
+                       cell?.detailTextLabel?.text = ""
+                       
+                   }
         return cell!
     }
     func updateTask(taskArray: [TaskName]){
@@ -83,8 +93,54 @@ class TaakListTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
-       
-       let deleteaction = UITableViewRowAction(style: .normal, title: "Delete") { (rowaction, indexPath) in
+       let Adddays = UITableViewRowAction(style: .normal, title: "Add Day") { (rowaction, indexPath) in
+                     print("days add ")
+        let alertcontroller = UIAlertController(title: "Add number of Day", message: "Enter a day for task", preferredStyle: .alert)
+                                       
+                                       alertcontroller.addTextField { (textField ) in
+                                                       textField.placeholder = "Number of days"
+                                        self.days = textField.text!
+                                        print(self.days)
+                                        
+                                           textField.text = ""
+                                        }
+                                       let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                                       CancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+                                       let AddAction = UIAlertAction(title: "Add Item", style: .default){
+                                           (action) in
+                                        let count = alertcontroller.textFields?.first?.text
+                                        self.tasks?[indexPath.row].countdown += Int(count!) ?? 0
+                                        
+//          if self.tasks?[indexPath.row].counter == self.tasks?[indexPath.row].lastdate{
+//                                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//                                                       let ManagedContext = appDelegate.persistentContainer.viewContext
+//                                                       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+//                                                do{
+//                                                    let test = try ManagedContext.fetch(fetchRequest)
+//                                                    let dataitem = test[indexPath.row] as!NSManagedObject
+//                                                    dataitem.setValue("", forKey: "name")
+//                                                    dataitem.setValue("", forKey: "counter")
+//                                                    tableView.reloadData()
+//        do{
+//                                                                try ManagedContext.save()
+//                                                        }
+//
+//                                                    catch{
+//                                                                       print(error)
+//                                                                   }
+//                                                }
+//                                                catch{
+//                                                    print(error)
+//                                                }
+//                                                       }
+                                            self.tableView.reloadData()
+                                    }
+                                AddAction.setValue(UIColor.black, forKey: "titleTextColor")
+                                                     alertcontroller.addAction(CancelAction)
+                                                     alertcontroller.addAction(AddAction)
+                                                     self.present(alertcontroller, animated: true, completion: nil)}
+                 Adddays.backgroundColor = UIColor.gray
+       let deletetask = UITableViewRowAction(style: .normal, title: "Delete") { (rowaction, indexPath) in
            
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                   let ManagedContext = appDelegate.persistentContainer.viewContext
@@ -106,8 +162,8 @@ class TaakListTableViewController: UITableViewController {
                print(error)
            }
                   }
-              deleteaction.backgroundColor = UIColor.red
-              return [deleteaction]
+              deletetask.backgroundColor = UIColor.red
+              return [deletetask,Adddays]
     }
   
 
@@ -145,12 +201,19 @@ class TaakListTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let detailView = segue.destination as? task_DetailViewController {
-            detailView.taskView = self
-            detailView.tasks = tasks
+        if let taskView = segue.destination as? task_DetailViewController {
+            taskView.taskView = self
+            taskView.tasks = tasks
         }
         
     }
     
-
+    
+    @IBAction func sortbytitle(_ sender: UIBarButtonItem) {
+        let sorttitle = self.tasks!
+                         self.tasks! = sorttitle.sorted { $0.taskname < $1.taskname }
+                            self.tableView.reloadData()
+        
+    }
+    
 }

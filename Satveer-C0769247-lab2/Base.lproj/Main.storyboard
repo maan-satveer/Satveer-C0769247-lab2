@@ -52,12 +52,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="TASK" id="2Af-Lc-YRX">
+                        <barButtonItem key="leftBarButtonItem" title="Sort by Title" id="OV0-C5-To6">
+                            <connections>
+                                <action selector="sortbytitle:" destination="1wo-mm-4VN" id="wj6-Ff-H9b"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="H69-gT-PLy">
                             <connections>
                                 <segue destination="4Y9-PG-GXl" kind="show" id="jGf-MU-NOI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchoption" destination="t9a-y5-5pD" id="t9c-Gp-7FU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3l-uy-ps8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

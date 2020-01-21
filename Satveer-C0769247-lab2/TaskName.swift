@@ -12,7 +12,7 @@ class TaskName{
    
     var taskname: String
     var lastdate: Int
-   
+    var countdown = 0
   
     init(taskname: String, lastdate: Int) {
         self.taskname = taskname
