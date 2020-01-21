@@ -11,10 +11,12 @@ import Foundation
 class TaskName{
    
     var taskname: String
+    var lastdate: Int
    
   
-    init(taskname: String) {
+    init(taskname: String, lastdate: Int) {
         self.taskname = taskname
+        self.lastdate = lastdate
     
     }
     

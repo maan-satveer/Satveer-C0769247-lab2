@@ -21,12 +21,28 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskcell" id="0xR-T0-WQ9">
-                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskcell" textLabel="LgP-gA-VQW" detailTextLabel="90Y-p4-xTC" style="IBUITableViewCellStyleSubtitle" id="0xR-T0-WQ9">
+                                <rect key="frame" x="0.0" y="72" width="414" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0xR-T0-WQ9" id="cmA-43-rnS">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LgP-gA-VQW">
+                                            <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="90Y-p4-xTC">
+                                            <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -64,11 +80,8 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT0-FK-S1x">
-                                <rect key="frame" x="20" y="233" width="374" height="40"/>
+                                <rect key="frame" x="20" y="328" width="374" height="39"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="qFt-8Y-opQ"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="SAVE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,20 +90,32 @@
                                     <action selector="savenotes:" destination="4Y9-PG-GXl" eventType="touchUpInside" id="bHu-Fy-GGR"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number of days" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ux9-ud-bhY">
+                                <rect key="frame" x="20" y="233" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="lyu-3F-A7o"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="2L6-bB-wuE" firstAttribute="leading" secondItem="Kwh-h1-dNy" secondAttribute="leading" constant="20" id="09E-pH-33K"/>
-                            <constraint firstItem="tT0-FK-S1x" firstAttribute="top" secondItem="2L6-bB-wuE" secondAttribute="bottom" constant="50" id="3LL-X9-nIl"/>
+                            <constraint firstItem="Ux9-ud-bhY" firstAttribute="leading" secondItem="Kwh-h1-dNy" secondAttribute="leading" constant="20" id="1mH-0j-fre"/>
                             <constraint firstItem="2L6-bB-wuE" firstAttribute="top" secondItem="Kwh-h1-dNy" secondAttribute="top" constant="50" id="5xt-3y-Or1"/>
-                            <constraint firstItem="Kwh-h1-dNy" firstAttribute="trailing" secondItem="tT0-FK-S1x" secondAttribute="trailing" constant="20" id="86j-lS-l6Y"/>
+                            <constraint firstItem="Ux9-ud-bhY" firstAttribute="top" secondItem="2L6-bB-wuE" secondAttribute="bottom" constant="50" id="6KS-h8-1u9"/>
+                            <constraint firstItem="Kwh-h1-dNy" firstAttribute="trailing" secondItem="Ux9-ud-bhY" secondAttribute="trailing" constant="20" id="6sb-KY-u0o"/>
                             <constraint firstItem="Kwh-h1-dNy" firstAttribute="trailing" secondItem="2L6-bB-wuE" secondAttribute="trailing" constant="20" id="M5K-za-ldg"/>
-                            <constraint firstItem="tT0-FK-S1x" firstAttribute="leading" secondItem="Kwh-h1-dNy" secondAttribute="leading" constant="20" id="NgT-Uw-LPd"/>
+                            <constraint firstItem="tT0-FK-S1x" firstAttribute="leading" secondItem="Kwh-h1-dNy" secondAttribute="leading" constant="20" id="PIu-EF-JEs"/>
+                            <constraint firstItem="tT0-FK-S1x" firstAttribute="top" secondItem="Ux9-ud-bhY" secondAttribute="bottom" constant="50" id="nan-FY-M7q"/>
+                            <constraint firstItem="Kwh-h1-dNy" firstAttribute="trailing" secondItem="tT0-FK-S1x" secondAttribute="trailing" constant="20" id="qUx-5F-aLh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kwh-h1-dNy"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Task" id="1ui-pP-bWj"/>
                     <connections>
+                        <outlet property="daysnumber" destination="Ux9-ud-bhY" id="wdd-Sn-bCz"/>
                         <outlet property="tasktextfield" destination="2L6-bB-wuE" id="Ao0-rX-HJl"/>
                     </connections>
                 </viewController>

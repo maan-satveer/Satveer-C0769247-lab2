@@ -11,7 +11,11 @@ import CoreData
 class task_DetailViewController: UIViewController {
     // outlets of all fields
     
+   
+    
     @IBOutlet var tasktextfield: UITextField!
+    
+    @IBOutlet var daysnumber: UITextField!
     var tasks: [TaskName]?
     var taskView : TaakListTableViewController?
     override func viewDidLoad() {
@@ -36,9 +40,11 @@ class task_DetailViewController: UIViewController {
     // to save any task
     @IBAction func savenotes(_ sender: UIButton) {
         let name = tasktextfield.text ?? ""
-        let task = TaskName(taskname: name)
+        let days = daysnumber.text ?? ""
+        let task = TaskName(taskname: name,lastdate: Int(days) ?? 0)
         tasks?.append(task)
         tasktextfield.text = ""
+        daysnumber.text = ""
         tasktextfield.resignFirstResponder()
         }
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,7 +57,7 @@ class task_DetailViewController: UIViewController {
     @objc func saveCoreData() {
           // call clear core data
         
-          //clearCoreData()
+          clearCoreData()
 
           // create an instance of app delegate
           let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -61,6 +67,7 @@ class task_DetailViewController: UIViewController {
           for task in tasks! {
               let taskEntity = NSEntityDescription.insertNewObject(forEntityName: "Task", into: managedContext)
               taskEntity.setValue(task.taskname, forKey: "name")
+            taskEntity.setValue(task.lastdate, forKey: "days")
 
 
               // save context
@@ -86,8 +93,8 @@ class task_DetailViewController: UIViewController {
                if results is [NSManagedObject] {
                    for result in results as! [NSManagedObject] {
                        let task = result.value(forKey: "name") as! String
-
-                      tasks?.append(TaskName(taskname:task))
+                       let taskdays = result.value(forKey: "days") as! Int
+                      tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0))
                    }
                }
 

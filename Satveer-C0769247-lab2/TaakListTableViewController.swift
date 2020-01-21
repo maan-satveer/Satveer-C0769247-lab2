@@ -34,9 +34,9 @@ class TaakListTableViewController: UITableViewController {
                 if results is [NSManagedObject] {
                     for result in results as! [NSManagedObject] {
                         let task = result.value(forKey: "name") as! String
+                        let taskdays = result.value(forKey: "days") as! Int
 
-
-                       tasks?.append(TaskName(taskname:task))
+                       tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0))
                         tableView.reloadData()
                     }
                 }
@@ -66,6 +66,7 @@ class TaakListTableViewController: UITableViewController {
     
 // Configure the cell...
         cell?.textLabel?.text = task.taskname
+        cell?.detailTextLabel?.text = "\(task.lastdate) days"
         return cell!
     }
     func updateTask(taskArray: [TaskName]){
@@ -81,24 +82,18 @@ class TaakListTableViewController: UITableViewController {
         return true
     }
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//       let Addaction = UITableViewRowAction(style: .normal, title: "Add Day") { (rowaction, indexPath) in
-//           print("add day clicked")
-//       }
-//       Addaction.backgroundColor = UIColor.blue
-       
+
        
        let deleteaction = UITableViewRowAction(style: .normal, title: "Delete") { (rowaction, indexPath) in
            
-           
-                 // let taskItem = self.tasks![indexPath.row] as? NSManagedObject
-                  let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
                   let ManagedContext = appDelegate.persistentContainer.viewContext
                   let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
            do{
-               let test = try ManagedContext.fetch(fetchRequest)
-               let item = test[indexPath.row] as? NSManagedObject
+               let data = try ManagedContext.fetch(fetchRequest)
+               let taskitem = data[indexPath.row] as? NSManagedObject
                self.tasks?.remove(at: indexPath.row)
-            ManagedContext.delete(item!)
+            ManagedContext.delete(taskitem!)
                tableView.reloadData()
                do{
                            try ManagedContext.save()
@@ -122,7 +117,6 @@ class TaakListTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
                     tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
