@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		D0AF3AC823D50C02003524C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3AC723D50C02003524C5 /* AppDelegate.swift */; };
 		D0AF3ACA23D50C02003524C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3AC923D50C02003524C5 /* SceneDelegate.swift */; };
-		D0AF3ACC23D50C02003524C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3ACB23D50C02003524C5 /* ViewController.swift */; };
 		D0AF3ACF23D50C02003524C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AF3ACD23D50C02003524C5 /* Main.storyboard */; };
 		D0AF3AD223D50C02003524C5 /* Satveer_C0769247_lab2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3AD023D50C02003524C5 /* Satveer_C0769247_lab2.xcdatamodeld */; };
 		D0AF3AD423D50C05003524C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AF3AD323D50C05003524C5 /* Assets.xcassets */; };
 		D0AF3AD723D50C05003524C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AF3AD523D50C05003524C5 /* LaunchScreen.storyboard */; };
+		D0AF3ADF23D50D0D003524C5 /* TaakListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3ADE23D50D0D003524C5 /* TaakListTableViewController.swift */; };
+		D0AF3AE123D512F3003524C5 /* task-DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3AE023D512F3003524C5 /* task-DetailViewController.swift */; };
+		D0AF3AE523D64584003524C5 /* TaskName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3AE423D64584003524C5 /* TaskName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D0AF3AC423D50C02003524C5 /* Satveer-C0769247-lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Satveer-C0769247-lab2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AF3AC723D50C02003524C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0AF3AC923D50C02003524C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D0AF3ACB23D50C02003524C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D0AF3ACE23D50C02003524C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D0AF3AD123D50C02003524C5 /* Satveer_C0769247_lab2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Satveer_C0769247_lab2.xcdatamodel; sourceTree = "<group>"; };
 		D0AF3AD323D50C05003524C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AF3AD623D50C05003524C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0AF3AD823D50C05003524C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0AF3ADE23D50D0D003524C5 /* TaakListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaakListTableViewController.swift; sourceTree = "<group>"; };
+		D0AF3AE023D512F3003524C5 /* task-DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "task-DetailViewController.swift"; sourceTree = "<group>"; };
+		D0AF3AE423D64584003524C5 /* TaskName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +64,14 @@
 			children = (
 				D0AF3AC723D50C02003524C5 /* AppDelegate.swift */,
 				D0AF3AC923D50C02003524C5 /* SceneDelegate.swift */,
-				D0AF3ACB23D50C02003524C5 /* ViewController.swift */,
 				D0AF3ACD23D50C02003524C5 /* Main.storyboard */,
 				D0AF3AD323D50C05003524C5 /* Assets.xcassets */,
 				D0AF3AD523D50C05003524C5 /* LaunchScreen.storyboard */,
 				D0AF3AD823D50C05003524C5 /* Info.plist */,
 				D0AF3AD023D50C02003524C5 /* Satveer_C0769247_lab2.xcdatamodeld */,
+				D0AF3ADE23D50D0D003524C5 /* TaakListTableViewController.swift */,
+				D0AF3AE023D512F3003524C5 /* task-DetailViewController.swift */,
+				D0AF3AE423D64584003524C5 /* TaskName.swift */,
 			);
 			path = "Satveer-C0769247-lab2";
 			sourceTree = "<group>";
@@ -141,8 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0AF3ACC23D50C02003524C5 /* ViewController.swift in Sources */,
+				D0AF3AE523D64584003524C5 /* TaskName.swift in Sources */,
+				D0AF3AE123D512F3003524C5 /* task-DetailViewController.swift in Sources */,
 				D0AF3AD223D50C02003524C5 /* Satveer_C0769247_lab2.xcdatamodeld in Sources */,
+				D0AF3ADF23D50D0D003524C5 /* TaakListTableViewController.swift in Sources */,
 				D0AF3AC823D50C02003524C5 /* AppDelegate.swift in Sources */,
 				D0AF3ACA23D50C02003524C5 /* SceneDelegate.swift in Sources */,
 			);
