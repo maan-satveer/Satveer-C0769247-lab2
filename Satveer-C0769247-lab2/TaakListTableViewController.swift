@@ -8,20 +8,26 @@
 
 import UIKit
 import CoreData
-class TaakListTableViewController: UITableViewController {
+class TaakListTableViewController: UITableViewController, UISearchBarDelegate {
     
-    @IBOutlet var searchoption: UISearchBar!
+    @IBOutlet var searchBar: UISearchBar!
+    
     var tasks: [TaskName]?
+    var filterArray: [TaskName]?
     var days = "0"
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadCoreData()
+        filterArray = tasks!
+        searchBar.delegate = self
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        loadCoreData()
+        
     }
     func loadCoreData() {
             tasks = [TaskName]()
@@ -38,9 +44,9 @@ class TaakListTableViewController: UITableViewController {
                     for result in results as! [NSManagedObject] {
                         let task = result.value(forKey: "name") as! String
                         let taskdays = result.value(forKey: "days") as! Int
-
-                       tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0))
-                        tableView.reloadData()
+                        let date = result.value(forKey: "date") as? String
+                        tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0,date:date ?? ""))
+                   //     tableView.reloadData()
                     }
                 }
 
@@ -50,7 +56,7 @@ class TaakListTableViewController: UITableViewController {
 
         }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data sour
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -59,19 +65,20 @@ class TaakListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return tasks?.count ?? 0
+        return filterArray?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let task = tasks![indexPath.row]
+        let task = filterArray![indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskcell")
     
 // Configure the cell...
         cell?.textLabel?.text = task.taskname
        // cell?.detailTextLabel?.text = "\(task.lastdate) days"
-        cell?.detailTextLabel?.text = "\(task.lastdate) days and \(task.countdown) completed days"
-           if tasks?[indexPath.row].countdown == self.tasks?[indexPath.row].lastdate{
+        cell?.detailTextLabel?.text = "\(task.lastdate) days and \(task.countdown) completed days " + "\(task.date)"
+        if task.countdown == task.lastdate
+           {
                        cell?.backgroundColor = UIColor.gray
                        cell?.textLabel?.text = "Task Completed"
                        cell?.detailTextLabel?.text = ""
@@ -79,6 +86,8 @@ class TaakListTableViewController: UITableViewController {
                    }
         return cell!
     }
+    
+    
     func updateTask(taskArray: [TaskName]){
         tasks = taskArray
         tableView.reloadData()
@@ -94,7 +103,7 @@ class TaakListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
        let Adddays = UITableViewRowAction(style: .normal, title: "Add Day") { (rowaction, indexPath) in
-                     print("days add ")
+                     
         let alertcontroller = UIAlertController(title: "Add number of Day", message: "Enter a day for task", preferredStyle: .alert)
                                        
                                        alertcontroller.addTextField { (textField ) in
@@ -109,30 +118,8 @@ class TaakListTableViewController: UITableViewController {
                                        let AddAction = UIAlertAction(title: "Add Item", style: .default){
                                            (action) in
                                         let count = alertcontroller.textFields?.first?.text
-                                        self.tasks?[indexPath.row].countdown += Int(count!) ?? 0
+                                        self.filterArray?[indexPath.row].countdown += Int(count!) ?? 0
                                         
-//          if self.tasks?[indexPath.row].counter == self.tasks?[indexPath.row].lastdate{
-//                                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//                                                       let ManagedContext = appDelegate.persistentContainer.viewContext
-//                                                       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-//                                                do{
-//                                                    let test = try ManagedContext.fetch(fetchRequest)
-//                                                    let dataitem = test[indexPath.row] as!NSManagedObject
-//                                                    dataitem.setValue("", forKey: "name")
-//                                                    dataitem.setValue("", forKey: "counter")
-//                                                    tableView.reloadData()
-//        do{
-//                                                                try ManagedContext.save()
-//                                                        }
-//
-//                                                    catch{
-//                                                                       print(error)
-//                                                                   }
-//                                                }
-//                                                catch{
-//                                                    print(error)
-//                                                }
-//                                                       }
                                             self.tableView.reloadData()
                                     }
                                 AddAction.setValue(UIColor.black, forKey: "titleTextColor")
@@ -148,7 +135,7 @@ class TaakListTableViewController: UITableViewController {
            do{
                let data = try ManagedContext.fetch(fetchRequest)
                let taskitem = data[indexPath.row] as? NSManagedObject
-               self.tasks?.remove(at: indexPath.row)
+               self.filterArray?.remove(at: indexPath.row)
             ManagedContext.delete(taskitem!)
                tableView.reloadData()
                do{
@@ -203,17 +190,40 @@ class TaakListTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if let taskView = segue.destination as? task_DetailViewController {
             taskView.taskView = self
-            taskView.tasks = tasks
+            taskView.tasks = self.tasks
         }
         
     }
     
     
     @IBAction func sortbytitle(_ sender: UIBarButtonItem) {
-        let sorttitle = self.tasks!
-                         self.tasks! = sorttitle.sorted { $0.taskname < $1.taskname }
+        let sorttitle = self.filterArray!
+                         self.filterArray! = sorttitle.sorted { $0.taskname < $1.taskname }
                             self.tableView.reloadData()
         
     }
+   
+    
+    @IBAction func sortBydate(_ sender: UIBarButtonItem) {
+        let sorttitle = self.filterArray!
+        self.filterArray! = sorttitle.sorted { $0.date < $1.date }
+           self.tableView.reloadData()
+    }
+    
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+         filterArray = searchText.isEmpty ? tasks : tasks?.filter({ (name: TaskName) -> Bool in
+             
+             return name.taskname.range(of: searchText, options:  .caseInsensitive) != nil
+         })
+         tableView.reloadData()
+     }
+    override func viewWillAppear(_ animated: Bool) {
+        filterArray = tasks!
+        tableView.reloadData()
+    }
+
+    
     
 }

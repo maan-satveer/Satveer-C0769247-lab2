@@ -40,8 +40,15 @@ class task_DetailViewController: UIViewController {
     // to save any task
     @IBAction func savenotes(_ sender: UIButton) {
         let name = tasktextfield.text ?? ""
-        let days = daysnumber.text ?? ""
-        let task = TaskName(taskname: name,lastdate: Int(days) ?? 0)
+        let days = Int(daysnumber.text ?? "" ) ?? 0
+        
+        
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "YYYY-mm-dd HH:mm:ss"
+        let datestring = format.string(from: date)
+        
+        let task = TaskName(taskname: name,lastdate: days,date: datestring )
         tasks?.append(task)
         tasktextfield.text = ""
         daysnumber.text = ""
@@ -68,7 +75,7 @@ class task_DetailViewController: UIViewController {
               let taskEntity = NSEntityDescription.insertNewObject(forEntityName: "Task", into: managedContext)
               taskEntity.setValue(task.taskname, forKey: "name")
             taskEntity.setValue(task.lastdate, forKey: "days")
-
+            taskEntity.setValue(task.date, forKey: "date")
 
               // save context
               do {
@@ -94,7 +101,8 @@ class task_DetailViewController: UIViewController {
                    for result in results as! [NSManagedObject] {
                        let task = result.value(forKey: "name") as! String
                        let taskdays = result.value(forKey: "days") as! Int
-                      tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0))
+                    let date = result.value(forKey: "date") as! String
+                      tasks?.append(TaskName(taskname:task,lastdate: Int(taskdays) ?? 0,date: date))
                    }
                }
 

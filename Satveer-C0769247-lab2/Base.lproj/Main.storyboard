@@ -57,14 +57,21 @@
                                 <action selector="sortbytitle:" destination="1wo-mm-4VN" id="wj6-Ff-H9b"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="H69-gT-PLy">
-                            <connections>
-                                <segue destination="4Y9-PG-GXl" kind="show" id="jGf-MU-NOI"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="plus" catalog="system" id="H69-gT-PLy">
+                                <connections>
+                                    <segue destination="4Y9-PG-GXl" kind="show" id="jGf-MU-NOI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Sort by Date" id="Atb-fb-kqt">
+                                <connections>
+                                    <action selector="sortBydate:" destination="1wo-mm-4VN" id="b02-2I-EPZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchoption" destination="t9a-y5-5pD" id="t9c-Gp-7FU"/>
+                        <outlet property="searchBar" destination="t9a-y5-5pD" id="NcJ-lV-rXj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3l-uy-ps8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
